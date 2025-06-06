@@ -1,3 +1,4 @@
 .env
 ignore_instagram_working_login.py
 .DS_Store
+login_details.json
