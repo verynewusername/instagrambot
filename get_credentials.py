@@ -1,3 +1,10 @@
+'''
+Get Instagram credentials and manage session persistence
+
+Author: Efe Sirin
+Date: 2025-06-06
+
+'''
 import os
 import requests
 import json
@@ -5,9 +12,6 @@ import time
 import pickle
 from datetime import datetime
 from dotenv import load_dotenv
-
-# Load environment variables from .env file
-load_dotenv()
 
 # load override for testing purposes
 load_dotenv('.env.override', override=True)
@@ -307,9 +311,9 @@ def instagram_login_with_env_encryption():
         print(f"❌ Request failed: {e}")
         return {'success': False, 'error': str(e)}
 
-def main():
+def get_login_session():
     """
-    Main function with login_details.json persistence
+    get_login_session function with login_details.json persistence
     """
     print("Instagram Login - Environment Configuration")
     print("=" * 60)
@@ -365,4 +369,7 @@ def main():
         print("\n❌ Login failed")
 
 if __name__ == "__main__":
-    main()
+    get_login_session()
+
+
+# ENDOF FILE get_credentials.py

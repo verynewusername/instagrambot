@@ -1,12 +1,18 @@
 '''
 This script retrieves a specific digit of pi from a file named 'pi.txt'.
 
+Author: Efe Sirin
+Date: 2025-06-06
+
 EX USAGE:
 3.14159
 0 > 3
-1 > 1
-2 > 4
-3 > 1
+1 > -1
+2 > 1
+3 > 4
+4 > 1
+5 > 5
+6 > 9
 ... 
 
 . is ignored
@@ -21,21 +27,25 @@ def read_digit_mmap(filename, position):
                 return chr(mm[position])
     return None
 
+
 def get_pi_digit(position):
     """
     Get the digit of pi at the specified position (0-indexed).
+    Returns -1 if the character at the position is a decimal point.
     """
     try:
         with open('pi.txt', 'r') as f:
-            pi_digits = f.read().replace('.', '')  # Remove decimal point
+            pi_digits = f.read()  # Don't remove decimal point
             if position < len(pi_digits):
-                return pi_digits[position]
+                if pi_digits[position] == '.':
+                    return -1
+                else:
+                    return pi_digits[position]
             else:
                 return None
     except FileNotFoundError:
         print("File 'pi.txt' not found.")
         return None
-    
 
 if __name__ == "__main__":
     import sys
@@ -55,4 +65,4 @@ if __name__ == "__main__":
         sys.exit(1)
 
 
-# ENDOF FILE get_pi_digit.py
+# ENDOF FILE get_pi_digit.py 

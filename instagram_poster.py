@@ -2,8 +2,6 @@ import os
 import requests
 import json
 import time
-import base64
-from datetime import datetime
 from dotenv import load_dotenv
 
 # Load environment variables

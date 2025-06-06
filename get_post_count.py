@@ -2,7 +2,7 @@
 This script retrieves the post count of a given Instagram user by their username.
 
 Author: Efe Sirin
-Date: 2025-06-6
+Date: 2025-06-06
 
 '''
 
