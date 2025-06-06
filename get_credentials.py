@@ -9,6 +9,9 @@ from dotenv import load_dotenv
 # Load environment variables from .env file
 load_dotenv()
 
+# load override for testing purposes
+load_dotenv('.env.override', override=True)
+
 def save_to_login_details(session_data, filename="login_details.json"):
     """
     Save session data to login_details.json file
