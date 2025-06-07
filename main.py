@@ -65,7 +65,7 @@ def main():
         print(f"Caption for index {pi_index}: {caption}")
 
         # # Post to Instagram
-        status = post_pi_number(pi_digit, caption)
+        status = post_pi_number(int(pi_digit), caption)
 
         assert status == "OK", "Failed to post to Instagram"
     except Exception as e:
