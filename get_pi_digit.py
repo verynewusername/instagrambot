@@ -6,13 +6,14 @@ Date: 2025-06-06
 
 EX USAGE:
 3.14159
-0 > 3
-1 > -1
-2 > 1
-3 > 4
-4 > 1
-5 > 5
-6 > 9
+IDX > output
+-1 > 3
+0 > -1
+1 > 1
+2 > 4
+3 > 1
+4 > 5
+5 > 9
 ... 
 
 . is ignored
@@ -34,6 +35,7 @@ def get_pi_digit(position):
     Returns -1 if the character at the position is a decimal point.
     """
     try:
+        position = position + 1
         with open('pi.txt', 'r') as f:
             pi_digits = f.read()  # Don't remove decimal point
             if position < len(pi_digits):

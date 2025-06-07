@@ -11,7 +11,7 @@ def upload_image_to_instagram(session, image_path, upload_id):
     """
     Upload image file to Instagram's servers
     """
-    print(f"📤 Uploading image: {image_path}")
+    # print(f"📤 Uploading image: {image_path}")
     
     # Read and encode image
     with open(image_path, 'rb') as f:
@@ -65,10 +65,10 @@ def upload_image_to_instagram(session, image_path, upload_id):
             timeout=30
         )
         
-        print(f"📤 Upload Status: {response.status_code}")
+        # print(f"📤 Upload Status: {response.status_code}")
         
         if response.status_code == 200:
-            print("✅ Image uploaded successfully!")
+            # print("✅ Image uploaded successfully!")
             return True
         else:
             print(f"❌ Upload failed: {response.text}")
@@ -82,7 +82,7 @@ def configure_instagram_post(session, upload_id, caption="", csrf_token=None):
     """
     Configure and publish the Instagram post
     """
-    print(f"📝 Configuring post with caption: '{caption}'")
+    # print(f"📝 Configuring post with caption: '{caption}'")
     
     # Get CSRF token from session if not provided
     if not csrf_token:
@@ -148,16 +148,16 @@ def configure_instagram_post(session, upload_id, caption="", csrf_token=None):
             timeout=30
         )
         
-        print(f"📝 Configure Status: {response.status_code}")
+        # print(f"📝 Configure Status: {response.status_code}")
         
         try:
             response_json = response.json()
             
             if response_json.get('status') == 'ok':
-                print("🎉 POST PUBLISHED SUCCESSFULLY!")
+                # print("🎉 POST PUBLISHED SUCCESSFULLY!")
                 media_info = response_json.get('media', {})
-                print(f"📱 Media ID: {media_info.get('id')}")
-                print(f"🔗 Media Code: {media_info.get('code')}")
+                # print(f"📱 Media ID: {media_info.get('id')}")
+                # print(f"🔗 Media Code: {media_info.get('code')}")
                 
                 return {
                     'success': True,
@@ -184,12 +184,12 @@ def post_to_instagram(session, image_path, caption="", csrf_token=None):
     """
     Complete Instagram posting function
     """
-    print("📸 Starting Instagram Post Process")
-    print("=" * 50)
+    # print("📸 Starting Instagram Post Process")
+    # print("=" * 50)
     
     # Generate upload ID (timestamp-based like Instagram)
     upload_id = str(int(time.time() * 1000))
-    print(f"🆔 Upload ID: {upload_id}")
+    # print(f"🆔 Upload ID: {upload_id}")
     
     # Step 1: Upload image
     upload_success = upload_image_to_instagram(session, image_path, upload_id)
@@ -233,19 +233,50 @@ def load_session_from_login_details(filename="login_details.json"):
         
         csrf_token = session_info.get('csrf_token')
         
-        print("✅ Session loaded from login_details.json")
+        # print("✅ Session loaded from login_details.json")
         return session, csrf_token
         
     except Exception as e:
         print(f"❌ Failed to load session: {e}")
         return None, None
+    
+def get_path_to_pi_image(number):
+    """
+    Get the path to the image file for the given pi digit number
+    """
+    if number == -1:
+        return "images/starwars_cosmic_dot/starwars_decimal_dot.png"
+    elif number == 0:
+        return "images/starwars_cosmic_digits/0.png"
+    elif number == 1:
+        return "images/starwars_cosmic_digits/1.png"
+    elif number == 2:
+        return "images/starwars_cosmic_digits/2.png"
+    elif number == 3:
+        return "images/starwars_cosmic_digits/3.png"
+    elif number == 4:
+        return "images/starwars_cosmic_digits/4.png"
+    elif number == 5:
+        return "images/starwars_cosmic_digits/5.png"
+    elif number == 6:
+        return "images/starwars_cosmic_digits/6.png"
+    elif number == 7:
+        return "images/starwars_cosmic_digits/7.png"
+    elif number == 8:
+        return "images/starwars_cosmic_digits/8.png"
+    elif number == 9:
+        return "images/starwars_cosmic_digits/9.png"
+    else:
+        raise ValueError(f"Invalid pi digit number: {number}. Must be between -1 and 9.")
 
-def main():
+def post_pi_number(number, caption=""):
     """
     Main posting function
     """
-    print("Instagram Posting Tool")
-    print("=" * 50)
+    # print("Instagram Posting Tool")
+    # print("=" * 50)
+
+    assert number >= -1 and number <= 9, "Number must be between -1 and 9"
     
     # Load session from saved login details
     session, csrf_token = load_session_from_login_details()
@@ -254,24 +285,31 @@ def main():
         return
     
     # Get image path and caption
-    image_path = input("📁 Enter image path: ").strip()
+    # image_path = input("📁 Enter image path: ").strip()
+    image_path = get_path_to_pi_image(number)
     if not os.path.exists(image_path):
         print(f"❌ Image not found: {image_path}")
         return
     
-    caption = input("📝 Enter caption (optional): ").strip()
+    # caption = input("📝 Enter caption (optional): ").strip()
+    if caption == "":
+        raise ValueError("Caption cannot be empty. Please provide a caption for the post.")
     
     # Post to Instagram
     result = post_to_instagram(session, image_path, caption, csrf_token)
     
     if result.get('success'):
-        print("\n🎉 SUCCESS!")
-        print("=" * 50)
-        print(f"Media ID: {result.get('media_id')}")
-        print(f"Media Code: {result.get('media_code')}")
-        print("Your post is now live on Instagram! 📱")
+        return "OK"
+        # print("\n🎉 SUCCESS!")
+        # print("=" * 50)
+        # print(f"Media ID: {result.get('media_id')}")
+        # print(f"Media Code: {result.get('media_code')}")
+        # print("Your post is now live on Instagram! 📱")
     else:
         print(f"\n❌ Posting failed: {result.get('error', 'Unknown error')}")
 
-if __name__ == "__main__":
-    main()
+# if __name__ == "__main__":
+#     main()
+
+
+# ENDOF FILE instagram_poster.py

@@ -9,7 +9,6 @@ import os
 import requests
 import json
 import time
-import pickle
 from datetime import datetime
 from dotenv import load_dotenv
 
@@ -315,27 +314,27 @@ def get_login_session():
     """
     get_login_session function with login_details.json persistence
     """
-    print("Instagram Login - Environment Configuration")
-    print("=" * 60)
+    # print("Instagram Login - Environment Configuration")
+    # print("=" * 60)
     
     # Check if we have saved session data in login_details.json
-    saved_session = load_from_login_details()
-    if saved_session and saved_session.get('login_successful'):
-        print("🔄 Found saved session data in login_details.json!")
-        display_session_summary(saved_session)
+    # saved_session = load_from_login_details()
+    # if saved_session and saved_session.get('login_successful'):
+    #     print("🔄 Found saved session data in login_details.json!")
+    #     display_session_summary(saved_session)
         
-        use_saved = input("\nUse saved session? (y/n): ").lower().strip()
-        if use_saved == 'y':
-            print("✅ Using saved session data")
+    #     use_saved = input("\nUse saved session? (y/n): ").lower().strip()
+    #     if use_saved == 'y':
+    #         print("✅ Using saved session data")
             
-            # Optionally recreate the session object
-            recreate = input("Recreate session object for API calls? (y/n): ").lower().strip()
-            if recreate == 'y':
-                session = create_session_from_saved_data(saved_session)
-                if session:
-                    print("🔄 Session object ready for API calls")
+    #         # Optionally recreate the session object
+    #         recreate = input("Recreate session object for API calls? (y/n): ").lower().strip()
+    #         if recreate == 'y':
+    #             session = create_session_from_saved_data(saved_session)
+    #             if session:
+    #                 print("🔄 Session object ready for API calls")
             
-            return
+    #         return
     
     # Perform fresh login
     result = instagram_login_with_env_encryption()

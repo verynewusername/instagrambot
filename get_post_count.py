@@ -183,8 +183,6 @@ def get_media_count_of_user(username):
         print("Username cannot be empty")
         sys.exit(1)
     
-    username = sys.argv[1].replace('@', '')  # Remove @ if present
-    
     # Load login details
     login_data = load_login_details()
     
