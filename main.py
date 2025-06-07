@@ -20,6 +20,9 @@ import os
 # load override for testing purposes
 load_dotenv('.env.override', override=True)
 
+IDX = -1
+TARGET = 10
+
 def get_caption_for_index(index, number):
     """
     Get the caption for the given index.
@@ -28,46 +31,52 @@ def get_caption_for_index(index, number):
         return "Hello World!"
     elif index == 0:
         return "The only dot in this number."
-    elif index == 1:
+    else:
         return f"The digit at index {index} is {number}."
 
 def main():
+
+    # Get global variables IDX
+    global IDX
+    global TARGET
 
     username = os.getenv("INSTAGRAM_USERNAME")
     encrypted_password = os.getenv("INSTAGRAM_ENCRYPTED_PASSWORD")
 
     # Get login session
     try:
-        assert username, "INSTAGRAM_USERNAME is not set in .env file"
-        assert encrypted_password, "INSTAGRAM_ENCRYPTED_PASSWORD is not set in .env file"
+        while IDX < TARGET:
+            assert username, "INSTAGRAM_USERNAME is not set in .env file"
+            assert encrypted_password, "INSTAGRAM_ENCRYPTED_PASSWORD is not set in .env file"
 
-        if os.path.exists('login_details.json'):
-            print("login_details.json already exists. Skipping login.")
-        else:
-            # Get the login session
-            get_login_session()
-            
-        # Assert that there is "login_details.json" file manually
-        assert os.path.exists('login_details.json'), "login_details.json not found in current directory"
+            if os.path.exists('login_details.json'):
+                print("login_details.json already exists. Skipping login.")
+            else:
+                # Get the login session
+                get_login_session()
+                
+            # Assert that there is "login_details.json" file manually
+            assert os.path.exists('login_details.json'), "login_details.json not found in current directory"
 
-        # Get the number of posts
-        post_count = get_media_count_of_user(username)
-        print(f"User @{username} has {post_count} posts.")
+            # Get the number of posts
+            post_count = get_media_count_of_user(username)
+            print(f"User @{username} has {post_count} posts.")
 
-        pi_index = post_count - 1  # Convert to 0-indexed
+            pi_index = post_count - 1  # Convert to 0-indexed
 
-        # Get the digit of pi at the post count index
-        pi_digit = get_pi_digit(pi_index)  # Convert to 0-indexed
-        print(f"The digit of pi at index {post_count} is: {pi_digit}")
+            # Get the digit of pi at the post count index
+            pi_digit = get_pi_digit(pi_index)  # Convert to 0-indexed
+            print(f"The digit of pi at index {post_count} is: {pi_digit}")
 
-        # Get the caption for the index
-        caption = get_caption_for_index(pi_index, pi_digit)
-        print(f"Caption for index {pi_index}: {caption}")
+            # Get the caption for the index
+            caption = get_caption_for_index(pi_index, pi_digit)
+            print(f"Caption for index {pi_index}: {caption}")
 
-        # # Post to Instagram
-        status = post_pi_number(int(pi_digit), caption)
+            # # Post to Instagram
+            status = post_pi_number(int(pi_digit), caption)
 
-        assert status == "OK", "Failed to post to Instagram"
+            assert status == "OK", "Failed to post to Instagram"
+            IDX = pi_index
     except Exception as e:
         # print(f"An error occurred: {e}")
         # return
