@@ -21,7 +21,7 @@ import os
 load_dotenv('.env.override', override=True)
 
 IDX = -1
-TARGET = 300
+TARGET = 500
 
 def get_caption_for_index(index, number):
     """
@@ -46,6 +46,7 @@ def main():
     # Get login session
     try:
         last_index_processed = -1
+        IDX = get_media_count_of_user(username) - 1  # Convert to 0-indexed
         while IDX < TARGET:
             assert username, "INSTAGRAM_USERNAME is not set in .env file"
             assert encrypted_password, "INSTAGRAM_ENCRYPTED_PASSWORD is not set in .env file"
