@@ -21,7 +21,7 @@ import os
 load_dotenv('.env.override', override=True)
 
 IDX = -1
-TARGET = 500
+TARGET = 1000
 
 def get_caption_for_index(index, number):
     """
