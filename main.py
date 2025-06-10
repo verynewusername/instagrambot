@@ -21,7 +21,7 @@ import os
 load_dotenv('.env.override', override=True)
 
 IDX = -1
-TARGET = 229
+TARGET = 300
 
 def get_caption_for_index(index, number):
     """
@@ -45,6 +45,7 @@ def main():
 
     # Get login session
     try:
+        last_index_processed = -1
         while IDX < TARGET:
             assert username, "INSTAGRAM_USERNAME is not set in .env file"
             assert encrypted_password, "INSTAGRAM_ENCRYPTED_PASSWORD is not set in .env file"
@@ -64,6 +65,9 @@ def main():
 
             pi_index = post_count - 1  # Convert to 0-indexed
 
+            if pi_index == last_index_processed:
+                raise Exception("Last post was probably deleted. Exiting...")
+
             # Get the digit of pi at the post count index
             pi_digit = get_pi_digit(pi_index)  # Convert to 0-indexed
             print(f"The digit of pi at index {post_count} is: {pi_digit}")
@@ -77,6 +81,7 @@ def main():
 
             assert status == "OK", "Failed to post to Instagram"
             IDX = pi_index
+            last_index_processed = pi_index
     except Exception as e:
         # print(f"An error occurred: {e}")
         # return
