@@ -7,8 +7,11 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-RUN useradd --create-home --shell /bin/bash app \
-    && chown -R app:app /app
+# Explicitly set permissions for pi.txt and make sure it's readable
+RUN chmod 644 pi.txt && \
+    useradd --create-home --shell /bin/bash app && \
+    chown -R app:app /app
+
 USER app
 
 ENV PYTHONUNBUFFERED=1

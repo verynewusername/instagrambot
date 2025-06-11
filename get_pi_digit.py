@@ -21,33 +21,33 @@ IDX > output
 '''
 import mmap
 
-def read_digit_mmap(filename, position):
-    with open(filename, 'rb') as f:
-        with mmap.mmap(f.fileno(), 0, access=mmap.ACCESS_READ) as mm:
-            if position < len(mm):
-                return chr(mm[position])
-    return None
-
-
 def get_pi_digit(position):
     """
-    Get the digit of pi at the specified position (0-indexed).
+    Get the digit of pi at the specified position (0-indexed) using mmap.
     Returns -1 if the character at the position is a decimal point.
     """
     try:
-        position = position + 1
-        with open('pi.txt', 'r') as f:
-            pi_digits = f.read()  # Don't remove decimal point
-            if position < len(pi_digits):
-                if pi_digits[position] == '.':
-                    return -1
+        # Adjust position to account for the "3." at the beginning
+        file_position = position + 1
+        
+        with open('pi.txt', 'rb') as f:
+            with mmap.mmap(f.fileno(), 0, access=mmap.ACCESS_READ) as mm:
+                if file_position < len(mm):
+                    char = chr(mm[file_position])
+                    if char == '.':
+                        return -1
+                    else:
+                        return char
                 else:
-                    return pi_digits[position]
-            else:
-                return None
+                    return None
+                    
     except FileNotFoundError:
         print("File 'pi.txt' not found.")
         return None
+    except Exception as e:
+        print(f"Error reading file: {e}")
+        return None
+
 
 if __name__ == "__main__":
     import sys
