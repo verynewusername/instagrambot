@@ -13,7 +13,7 @@ from datetime import datetime
 from dotenv import load_dotenv
 
 # load override for testing purposes
-load_dotenv('.env.override', override=True)
+load_dotenv()
 
 def save_to_login_details(session_data, filename="login_details.json"):
     """
@@ -134,15 +134,13 @@ def instagram_login_with_env_encryption():
     Instagram login using encrypted password from environment variable
     """
     username = os.getenv("INSTAGRAM_USERNAME")
-    password = os.getenv("INSTAGRAM_PASSWORD")
     encrypted_password = os.getenv("INSTAGRAM_ENCRYPTED_PASSWORD")
     
     # Debug: Print what we got from environment
     print(f"🔍 Debug - Username: {username}")
-    print(f"🔍 Debug - Password: {'*' * len(password) if password else 'None'}")
     print(f"🔍 Debug - Encrypted Password: {encrypted_password[:50] + '...' if encrypted_password else 'None'}")
     
-    if not username or not password:
+    if not username:
         print("❌ Error: INSTAGRAM_USERNAME and INSTAGRAM_PASSWORD environment variables must be set")
         return None
     
