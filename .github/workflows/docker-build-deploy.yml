@@ -9,7 +9,29 @@ env:
   IMAGE_NAME: ${{ github.repository }}
 
 jobs:
+  check-changes:
+    runs-on: ubuntu-latest
+    outputs:
+      should-build: ${{ steps.changes.outputs.should-build }}
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 2
+
+    - name: Check for relevant changes
+      id: changes
+      run: |
+        # Check if there are changes to source code, Dockerfile, or dependencies
+        if git diff --name-only HEAD~1 HEAD | grep -E '\.(py|js|ts|json|yml|yaml|Dockerfile|requirements\.txt|package\.json)$'; then
+          echo "should-build=true" >> $GITHUB_OUTPUT
+        else
+          echo "should-build=false" >> $GITHUB_OUTPUT
+        fi
+
   build-and-push:
+    needs: check-changes
+    if: needs.check-changes.outputs.should-build == 'true'
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -36,18 +58,22 @@ jobs:
         images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
         tags: |
           type=raw,value=latest
+          type=sha,prefix={{branch}}-
 
     - name: Build and push Docker image
       uses: docker/build-push-action@v5
       with:
         context: .
-        platforms: linux/amd64,linux/arm64,linux/arm/v7  # Multi-architecture!
+        platforms: linux/amd64,linux/arm64,linux/arm/v7
         push: true
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
 
   deploy:
-    needs: build-and-push
+    needs: [check-changes, build-and-push]
+    if: always() && needs.check-changes.outputs.should-build == 'true' && needs.build-and-push.result == 'success'
     runs-on: ubuntu-latest
     
     steps:
@@ -60,27 +86,13 @@ jobs:
 
     - name: Deploy via SSH
       run: |
-        # Wait for Tailscale to be ready
         sleep 10
         
-        # SSH into your server and run deployment commands
         ssh -o StrictHostKeyChecking=no efe@100.119.45.125 << 'EOF'
-
-          # cd into the correct dir
           cd /home/efe/server/instagrambot
-
-          # Pull the latest image
           docker pull ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
-          
-          # Stop and remove the existing container
           docker compose down
-          
-          # Remove old containers completely
           docker compose rm -f
-
-          # Start the new container with the latest image
           docker compose up -d
-          
-          # Clean up unused images (this will remove old versions)
           docker image prune -f
         EOF
