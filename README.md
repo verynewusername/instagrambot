@@ -48,12 +48,18 @@
     pip install -r requirements.txt
     ```
 3.  **Set up environment variables:**
-    *(If your project uses a .env file or similar for configuration, explain how to set it up.)*
+    Create a `.env` file in the root of the project (or copy `.env.example` if one exists). This file will store your credentials and other configuration settings.
     ```bash
-    # Example: Copy the example environment file
-    cp .env.example .env
+    # Example: Copy the example environment file if you provide one
+    # cp .env.example .env
     ```
-    Then, edit `.env` with your credentials and settings.
+    Add the following variables to your `.env` file:
+    ```env
+    INSTAGRAM_USERNAME="your_instagram_username"
+    INSTAGRAM_ENCRYPTED_PASSWORD="your_captured_encrypted_password"
+    ```
+    **Important Note on `INSTAGRAM_ENCRYPTED_PASSWORD`:**
+    This is not your plain text Instagram password. You need to capture this encrypted password string from a legitimate login request made through a web browser (e.g., using browser developer tools to inspect network requests during login). The specific encryption method is handled by Instagram, and this bot utilizes the already encrypted form. Once captured, this encrypted password should remain valid as long as your actual Instagram password does not change.
 
 ## 🚀 Usage
 
@@ -66,7 +72,19 @@ python main.py
 
 ## 🔧 Configuration
 
-*(Explain any configuration options available. How can users customize the bot's behavior? This might involve editing a configuration file or setting environment variables like INSTAGRAM_USERNAME, INSTAGRAM_PASSWORD, etc.)*
+The primary configuration for this bot is handled through environment variables, which should be placed in a `.env` file in the project's root directory.
+
+**Required Environment Variables:**
+
+*   `INSTAGRAM_USERNAME`: Your Instagram username.
+    *   Example: `INSTAGRAM_USERNAME="mytestuser"`
+
+*   `INSTAGRAM_ENCRYPTED_PASSWORD`: Your Instagram password, but in its encrypted form.
+    *   **How to obtain:** This encrypted string must be captured from a web UI HTTP request during a successful login to Instagram (e.g., by using your browser's developer tools and inspecting the network traffic when you log in). The bot does not know how to perform the encryption itself, so it relies on you providing the already encrypted version.
+    *   **Persistence:** Once you obtain this encrypted password, it will remain the same and can be reused, provided your actual Instagram password does not change.
+    *   Example: `INSTAGRAM_ENCRYPTED_PASSWORD="'#PWD_INSTAGRAM_BROWSER:11:1111111111:aaaaaaaaaaaaa/bbbbbbbbbbbbbbb/jkmnpqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxy'"` (this is just a placeholder, yours will look different)
+
+*(Add any other optional environment variables or configuration files here.)*
 
 ## 🤝 Contributing
 
