@@ -86,11 +86,11 @@ jobs:
 
     - name: Deploy via SSH
       run: |
-        ssh -o "StrictHostKeyChecking no" ${{ secrets.HOST }} "
-          cd /home/efe/server/instagrambot
-          docker pull ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
-          docker compose down
-          docker compose rm -f
-          docker compose up -d
+        ssh -o "StrictHostKeyChecking no" -o "ConnectTimeout=30" ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} "
+          cd /home/efe/server/instagrambot &&
+          docker pull ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest &&
+          docker compose down &&
+          docker compose rm -f &&
+          docker compose up -d &&
           docker image prune -f
         "
