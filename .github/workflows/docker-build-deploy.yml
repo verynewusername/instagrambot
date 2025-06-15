@@ -23,7 +23,7 @@ jobs:
       id: changes
       run: |
         # Check if there are changes to source code, Dockerfile, or dependencies
-        if git diff --name-only HEAD~1 HEAD | grep -E '\.(py|js|ts|json|yml|yaml|Dockerfile|requirements\.txt|package\.json)$'; then
+        if git diff --name-only HEAD~1 HEAD | grep -E '\.(py|js|ts|json|yaml|Dockerfile|requirements\.txt|package\.json)$'; then
           echo "should-build=true" >> $GITHUB_OUTPUT
         else
           echo "should-build=false" >> $GITHUB_OUTPUT
@@ -77,8 +77,8 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    - name: Setup Tailscale
-      uses: tailscale/github-action@v3
+    - name: Connect Tailscale
+      uses: tailscale/github-action@v2
       with:
         oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
         oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
@@ -86,13 +86,11 @@ jobs:
 
     - name: Deploy via SSH
       run: |
-        sleep 10
-        
-        ssh -o StrictHostKeyChecking=no efe@100.119.45.125 << 'EOF'
+        ssh -o "StrictHostKeyChecking no" ${{ secrets.HOST }} "
           cd /home/efe/server/instagrambot
           docker pull ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
           docker compose down
           docker compose rm -f
           docker compose up -d
           docker image prune -f
-        EOF
+        "
