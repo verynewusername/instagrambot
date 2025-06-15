@@ -84,6 +84,19 @@ jobs:
         oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
         tags: tag:ci
 
+    # ---- START: ADD THESE DEBUGGING STEPS ----
+    - name: Wait for network and debug
+      run: |
+        echo "Waiting for Tailscale network to settle..."
+        sleep 5
+        echo "Pinging the host..."
+        ping -c 3 ${{ secrets.VPS_HOST }}
+        echo "Resolving host with nslookup..."
+        nslookup ${{ secrets.VPS_HOST }}
+        echo "Checking Tailscale status..."
+        tailscale status
+    # ---- END: ADD THESE DEBUGGING STEPS ----
+
     - name: Deploy via SSH
       run: |
         ssh -o "StrictHostKeyChecking no" -o "ConnectTimeout=30" ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} "
