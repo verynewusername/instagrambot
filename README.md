@@ -1,6 +1,6 @@
-# Instagram Bot
+# Instagram Bot for @circumferencedividedbydiameter
 
-This bot is created to post automated content on Instagram. The account it uses is: @circumferencedividedbydiameter
+This bot is created to post automated content on Instagram. It is currently dedicated to posting the digits of Pi sequentially to the account: [@circumferencedividedbydiameter](https://www.instagram.com/circumferencedividedbydiameter/).
 
 ## 📖 Table of Contents
 - [About](#about)
@@ -14,12 +14,17 @@ This bot is created to post automated content on Instagram. The account it uses 
 
 ## 🌟 About
 
-This project came about due to the lack of official Instagram APIs suitable for this type of automation. As such, it relies on reverse-engineered methods to interact with Instagram. This means that while functional, it may be sensitive to changes made by Instagram to their private API or web interface.
+This project came about due to the lack of official Instagram APIs suitable for this type of automation. As such, it relies on reverse-engineered methods to interact with Instagram. While the underlying code has the capability for more general Instagram automation tasks (like those listed in Features), its current primary function and development focus is to systematically post the digits of Pi.
+
+This means that while functional, it may be sensitive to changes made by Instagram to their private API or web interface.
 
 ## ✨ Features
 
+The bot currently supports the following for the designated account:
 *   **Post Count Retrieval:** Can fetch the exact number of posts for the configured account.
-*   **Automated Posting:** Allows placing new posts with captions to the Instagram account.
+*   **Automated Posting:** Allows placing new posts (e.g., digits of Pi) with captions to the Instagram account.
+
+*(The core logic could be adapted for other automated posting tasks with modifications.)*
 
 ## 🛠 Prerequisites
 
@@ -63,7 +68,6 @@ If the main script is `main.py` (a common convention), you would run it like thi
 ```bash
 python main.py
 ```
-*(Please update this command if your main script has a different name or if there are specific command-line arguments required to perform certain actions, like posting content vs. getting post count.)*
 
 ## 🔧 Configuration
 
@@ -74,16 +78,14 @@ The primary configuration for this bot is handled through environment variables,
 *   `INSTAGRAM_USERNAME`: The username of the Instagram account the bot will control.
     *   Example: `INSTAGRAM_USERNAME="circumferencedividedbydiameter"`
 
-*   `INSTAGRAM_ENCRYPTED_PASSWORD`: Your Instagram password, but in its encrypted form as captured from a browser session.
+*   `INSTAGRAM_ENCRYPTED_PASSWORD`: Your Instagram password for the specified account, but in its encrypted form as captured from a browser session.
     *   **How to obtain:** As detailed in the Installation section, this encrypted string must be captured from a web UI HTTP request during a successful login to Instagram.
     *   **Persistence:** Once obtained, this encrypted password can be reused as long as your actual Instagram password remains unchanged.
     *   Example Format (your actual captured password will vary): `INSTAGRAM_ENCRYPTED_PASSWORD="'#PWD_INSTAGRAM_BROWSER:11:1111111111:..."` (The string will be much longer and contain a mix of characters).
 
-*(If there are other optional environment variables for things like post frequency, content sources, or specific bot behaviors, list and describe them here.)*
-
 ## 🤝 Contributing
 
-Contributions are welcome! If you'd like to improve the bot or add features, please follow these steps:
+While the bot is currently focused on posting digits of Pi, contributions that enhance its core functionality or improve its robustness are welcome. If you'd like to contribute:
 1. Fork the repository.
 2. Create a new branch for your feature or fix (`git checkout -b feature/your-amazing-feature` or `git checkout -b fix/some-bug`).
 3. Make your changes and commit them with clear messages (`git commit -m 'Add amazing feature'`).
@@ -102,3 +104,4 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 ---
 
 Built with ❤️ by @verynewusername
+*Currently posting the infinite wisdom of Pi, one digit at a time.*
