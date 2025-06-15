@@ -23,7 +23,7 @@ jobs:
       id: changes
       run: |
         # Check if there are changes to source code, Dockerfile, or dependencies
-        if git diff --name-only HEAD~1 HEAD | grep -E '\.(py|js|ts|json|yaml|Dockerfile|requirements\.txt|package\.json)$'; then
+        if git diff --name-only HEAD~1 HEAD | grep -E '\.(py|js|ts|json|yml|yaml|Dockerfile|requirements\.txt|package\.json)$'; then
           echo "should-build=true" >> $GITHUB_OUTPUT
         else
           echo "should-build=false" >> $GITHUB_OUTPUT
