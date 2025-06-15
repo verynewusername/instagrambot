@@ -64,7 +64,7 @@ jobs:
         sleep 10
         
         # SSH into your server and run deployment commands
-        ssh -o StrictHostKeyChecking=no efe@rp-nl << 'EOF'
+        ssh -o StrictHostKeyChecking=no efe@100.119.45.125 << 'EOF'
 
           # cd into the correct dir
           cd /home/efe/server/instagrambot
