@@ -96,10 +96,17 @@ While the bot is currently focused on posting digits of Pi, contributions that e
 
 ## 📄 License
 
-This project is currently not licensed. Please choose an appropriate open-source license (e.g., MIT, Apache 2.0, GPL) and add a `LICENSE.md` file to the repository. Update this section to reflect your choice.
+[![CC BY-NC-SA 4.0](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 
-Example:
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
+This work is licensed under a [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-nc-sa/4.0/).
+
+**What this means:**
+- ✅ You can use, share, and modify this code for **non-commercial purposes**
+- ✅ You must provide **attribution** to the original creator
+- ✅ Any modifications must be shared under the **same license**
+- ❌ **Commercial use** requires separate permission
+
+For the full license text, see the [LICENSE](LICENSE) file.
 
 ---
 
