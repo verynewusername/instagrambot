@@ -10,7 +10,7 @@ if 1 post -> put index 0
 
 => number of posts - 1 = index of pi digit to post
 '''
-from get_credentials import get_login_session
+# from get_credentials import get_login_session
 from get_pi_digit import get_pi_digit
 from get_post_count import get_media_count_of_user
 from instagram_poster import post_pi_number
@@ -55,7 +55,8 @@ def main():
                 print("login_details.json already exists. Skipping login.")
             else:
                 # Get the login session
-                get_login_session()
+                # get_login_session()
+                print("login_details.json does not exist. Make a new login.")
                 
             # Assert that there is "login_details.json" file manually
             assert os.path.exists('login_details.json'), "login_details.json not found in current directory"
