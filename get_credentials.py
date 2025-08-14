@@ -95,11 +95,25 @@ def instagram_login_with_selenium():
     except Exception:
         pass
 
+    
+
     # --- Save credentials in original format ---
     session_data = extract_session_data_from_cookies(driver)
     save_to_login_details(session_data)
 
     print("✅ Login completed. Credentials saved in original format.")
+
+    # wait untill user closes the browser
+    print("🔄 Waiting for user to close the browser...")
+    while True:
+        try:
+            if driver.current_url == "https://www.instagram.com/":
+                print("🔄 Still logged in, waiting for user to close the browser...")
+            time.sleep(5)
+        except Exception as e:
+            print(f"❌ Error while checking browser state: {e}")
+            break
+
     # driver.quit()  # Uncomment to close browser
 
 if __name__ == "__main__":
