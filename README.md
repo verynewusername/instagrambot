@@ -1,6 +1,26 @@
 # Instagram Bot for @circumferencedividedbydiameter
 
-This bot is created to post automated content on Instagram. It is currently dedicated to posting the digits of Pi sequentially to the account: [@circumferencedividedbydiameter](https://www.instagram.com/circumferencedividedbydiameter/).
+> **⚠️ ACCOUNT SUSPENDED ~ after 10k posts**
+>
+> **This account has been permanently suspended by Instagram/Meta for allegedly violating their "Community Standards" - despite posting nothing but the mathematical constant Pi, one digit at a time.**
+>
+> What exactly did Instagram find objectionable about the number 3.14159...? Your guess is as good as mine.
+>
+>
+> **The Timeline**
+> 1. **Initial Suspension** - Account suspended for unspecified "Community Standards" violations ([see screenshot](./images/suspension_notice_1.png))
+> 2. **Permanent Disable Notice** - Account permanently disabled after review, still citing mysterious violations ([see screenshot](./images/suspension_notice_2.png))
+> 3. **Appeal Submitted** - Appeal filed on October 18, 2025 ([see screenshot](./images/appeal_submitted.png))
+> 4. **Outcome** - [To be determined, but expectations are low]
+>
+> **I condemn Instagram/Meta**
+>
+> This project now stands as both a technical experiment and a cautionary tale about the unchecked power of social media platforms to silence users without justification, transparency, or accountability.
+>
+>
+> ---
+
+This bot is created to post automated content on Instagram. It ~~is~~ **was** currently dedicated to posting the digits of Pi sequentially to the account: [@circumferencedividedbydiameter](https://www.instagram.com/circumferencedividedbydiameter/) **[SUSPENDED]**.
 
 ## 📖 Table of Contents
 - [About](#about)
