@@ -1,6 +1,6 @@
 # Instagram Bot for @circumferencedividedbydiameter
 
-> **⚠️ ACCOUNT SUSPENDED**
+> **⚠️ ACCOUNT SUSPENDED ~ after 10k posts**
 >
 > **This account has been permanently suspended by Instagram/Meta for allegedly violating their "Community Standards" - despite posting nothing but the mathematical constant Pi, one digit at a time.**
 >
